@@ -1,1 +1,141 @@
-adshsfffdvxvxgada
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Free Time Calculator</title>
+
+  <style>
+    body {
+      font-family: Arial, sans serif;
+      padding: 30px;
+      background-color: #ffffff;
+    }
+
+    .container {
+      max-width: 450px;
+      background: white;
+      padding: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      background-color: #d0e1fd;
+      padding: 2px solid #333;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #b5ccdc;
+    }
+
+    .reset-btn {
+      background-color: #ffcccc;
+    }
+
+    .reset-btn:hover {
+      background-color: #ffb3b3
+    }
+
+    /* visual bar */
+    .bar-container {
+      display: flex;
+      width: 100%;
+      height: 50px;
+      margin-top: 25px;
+      background-color: #d0e1fd;
+      overflow: hidden;
+    }
+
+    /* indiviual task boxes */  
+    .task-segment {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      box-sizing: border-box;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding: 4px;
+    }
+
+    .free-bar { 
+      flex-grow: 1; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 14px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .limit-warning {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #ffdddd;
+      color: #cc0000;
+      text-align: center;
+      border-radius: 4px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="input-group">
+      <label>Time avalible (minutes):</label>
+      <input type="number" placeholder="Input here:">
+    </div>
+
+    <div class="input-group">
+      <label>Activity duration (minutes):</label>
+      <input type="number" placeholder="Input here:">
+    </div>
+
+      <div class="button-row">
+        <button>Add new activity</button>
+        <button class="reset-btn">Reset</button>
+      </div>
+    </div>
+
+  <div class="bar-container">
+
+    <div class="task-segment" style="width: 25%; background-color: #ffff00;">
+      <span>Used time</span>
+    </div>
+
+    <div class="free-bar">
+      <span>Free time</span>
+    </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
