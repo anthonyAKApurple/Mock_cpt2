@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Free Time Calculator</title>
-
   <style>
+
     body {
       font-family: Arial, sans serif;
       padding: 30px;
@@ -55,7 +55,7 @@
     }
 
     .reset-btn:hover {
-      background-color: #ffb3b3
+      background-color: #ffb3b3;
     }
 
     /* visual bar */
@@ -68,7 +68,7 @@
       overflow: hidden;
     }
 
-    /* indiviual task boxes */  
+    /* indiviual task boxes */
     .task-segment {
       height: 100%;
       display: flex;
@@ -76,32 +76,29 @@
       justify-content: center;
       font-size: 12px;
       box-sizing: border-box;
-      overflow: hidden;
       white-space: nowrap;
-      text-overflow: ellipsis;
       padding: 4px;
     }
 
-    .free-bar { 
-      flex-grow: 1; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
+    .free-bar {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 14px;
-      overflow: hidden;
       white-space: nowrap;
     }
-
+    
     .limit-warning {
       margin-top: 15px;
       padding: 10px;
       background-color: #ffdddd;
-      color: #cc0000;
+      color: #e20707;
       text-align: center;
       border-radius: 4px;
     }
-
   </style>
+
 </head>
 <body>
 
@@ -109,33 +106,123 @@
 
     <div class="input-group">
       <label>Time avalible (minutes):</label>
-      <input type="number" placeholder="Input here:">
+      <input type="number" id="availInput" placeholder="Input here:">
     </div>
 
     <div class="input-group">
       <label>Activity duration (minutes):</label>
-      <input type="number" placeholder="Input here:">
+      <input type="number" id="actInput" placeholder="Input here:">
     </div>
 
-      <div class="button-row">
-        <button>Add new activity</button>
-        <button class="reset-btn">Reset</button>
-      </div>
-    </div>
-
-  <div class="bar-container">
-
-    <div class="task-segment" style="width: 25%; background-color: #ffff00;">
-      <span>Used time</span>
-    </div>
-
-    <div class="free-bar">
-      <span>Free time</span>
-    </div>
-
+    <div class="button-row">
+      <button onclick="testBarMove()">Add new activity</button>
+      <button class="reset-btn" onclick="resetBar()">Reset</button>
     </div>
 
   </div>
 
+  <div class="bar-container">
+
+    <div class="task-segment" id="usedBar" style="width: 0%; background-color: #ffff00;">
+      <span id="usedText" style="display: none;">Used time</span>
+    </div>
+
+    <div class="free-bar" id="free-bar">
+      <span id="freeText">Free time</span>
+    </div>
+
+  </div>
+
+  <script>
+    var currentWidth = 1;
+
+    function testBarMove() {
+      var avail = document.getElementById("availInput").value;
+      var act = document.getElementById("actInput").value;
+
+      //AI assisted starts
+      if (avail > 0 && act > 0) {
+        var addedPercent = (act / avail) * 100;
+        currentWidth = currentWidth + addedPercent;
+      } else {
+        currentWidth = currentWidth + 1;
+      }
+      //AI assisted ends
+
+      //researched how to add a red flash
+      if (currentWidth > 100) {
+        currentWidth = 100;
+        flashRed();
+      }
+
+      document.getElementById("usedBar").style.width = currentWidth + "%";
+      updateLabels();
+    }
+
+    //researched how to add a red flash
+    function flashRed() {
+      document.getElementById("usedBar").style.backgroundColor = "#ff0000";
+      setTimeout(function() {
+        document.getElementById("usedBar").style.backgroundColor = "#ffff00";
+      }, 300);
+    }
+
+    function resetBar() {
+      currentWidth = 0;
+      document.getElementById("usedBar").style.width = "0%";
+      updateLabels();
+    }
+
+    function updateLabels() {
+      var freeWidth = 100 - currentWidth;
+
+      // hide text used time if under 10%
+      if (currentWidth < 8) {
+        document.getElementById("usedText").style.display = "none";
+      } else {
+        document.getElementById("usedText").style.display = "inline-block";
+      }
+
+      // hide text free time if under 10%
+      if (freeWidth < 12) {
+        document.getElementById("freeText").style.display = "none";
+      } else {
+        document.getElementById("freeText").style.display = "inline-block";
+      }
+    }
+
+    function updateLabels() {
+      var freeWidth = 100 - currentWidth;
+
+      // used text
+      var usedText = document.getElementById("usedText");
+      if (currentWidth < 8) {
+        usedText.style.display = "none";
+      } else {
+        usedText.style.display = "inline-block";  
+        var usedScale = 1;
+        if (currentWidth < 25) {
+          usedScale = currentWidth / 25;
+        }
+        // AI assisted
+        usedText.style.transform = "scaleX(" + usedScale + ")";
+      }
+
+      // free text
+      var freeText = document.getElementById("freeText");
+      if (freeWidth < 8) {
+        freeText.style.display = "none";
+      } else {
+        freeText.style.display = "inline-block";  
+        var freeScale = 1;
+        if (freeWidth < 25) {
+          freeScale = freeWidth / 25;
+        }
+        // AI assisted
+        freeScale.style.transform = "scaleX(" + freeScale + ")";
+      }
+    }
+
+  </script>
 </body>
 </html>
